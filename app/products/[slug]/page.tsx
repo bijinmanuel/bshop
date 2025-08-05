@@ -19,9 +19,7 @@ import { Separator } from "@radix-ui/react-select";
 import { Badge } from "@/components/ui/badge";
 
 interface ProductPageProps {
-  params: {
-    slug: string;
-  };
+  params: Promise<{ slug: string }>;
 }
 
 export async function generateStaticParams() {
