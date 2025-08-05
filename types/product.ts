@@ -13,7 +13,7 @@ export interface Product {
     rating: number;
     reviewCount: number;
     specifications?: Record<string, string>;
-    tags?: string[];
+    tags: string[];
 }
 
 export interface CartItem {

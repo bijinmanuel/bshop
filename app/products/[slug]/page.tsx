@@ -3,7 +3,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { getProductBySlug, products } from "@/lib/products";
 import { notFound } from "next/navigation";
-import { ArrowLeft, Heart, RotateCcw, Share2, Shield, Star, Truck } from "lucide-react";
+import {
+  ArrowLeft,
+  Heart,
+  RotateCcw,
+  Share2,
+  Shield,
+  Star,
+  Truck,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCartStore } from "@/lib/cart";
 import { AddToCartButton } from "@/components/ui/add-to-cart-button";
@@ -22,26 +30,33 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: ProductPageProps): Promise<Metadata> {
   const product = getProductBySlug(params.slug);
+
   if (!product) {
     return {
       title: "Product Not Found",
-      description: "The product you are looking for does not exist.",
     };
   }
+
   return {
-    title: `${product.name} | B-Shop`,
+    title: `${product.name} - ShopNext`,
     description: product.description,
-    keywords: product.tags?.join(", "),
+    keywords: product.tags.join(", "),
     openGraph: {
       title: product.name,
       description: product.description,
       images: [
-        { url: product.image, alt: product.name, width: 1200, height: 630 },
+        {
+          url: product.image,
+          width: 800,
+          height: 800,
+          alt: product.name,
+        },
       ],
       type: "website",
-      url: `https://ecommerce-app.com/products/${product.slug}`,
     },
     twitter: {
       card: "summary_large_image",
@@ -54,6 +69,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
 
 export default function ProductPage({ params }: ProductPageProps) {
   const product = getProductBySlug(params.slug);
+
   if (!product) {
     notFound();
   }
@@ -62,11 +78,11 @@ export default function ProductPage({ params }: ProductPageProps) {
     "@context": "https://schema.org",
     "@type": "Product",
     name: product.name,
-    image: product.images,
     description: product.description,
+    image: product.images,
     brand: {
       "@type": "Brand",
-      name: "B-Shop",
+      name: "ShopNext",
     },
     offers: {
       "@type": "Offer",
@@ -75,10 +91,9 @@ export default function ProductPage({ params }: ProductPageProps) {
       availability: product.inStock
         ? "https://schema.org/InStock"
         : "https://schema.org/OutOfStock",
-      itemCondition: "https://schema.org/NewCondition",
       seller: {
         "@type": "Organization",
-        name: "B-Shop",
+        name: "ShopNext",
       },
     },
     aggregateRating: {
@@ -229,7 +244,10 @@ export default function ProductPage({ params }: ProductPageProps) {
 
             {/* Actions */}
             <div className="space-y-4">
-              <AddToCartButton product={product} className="bg-blue-600 hover:bg-blue-700 hover:text-black text-white" />
+              <AddToCartButton
+                product={product}
+                className="bg-blue-600 hover:bg-blue-700 hover:text-black text-white"
+              />
 
               <div className="flex space-x-4">
                 <Button variant="outline" size="sm">
