@@ -14,8 +14,10 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background-start-rgb: 214, 219, 220;   /* Deep navy blue for a rich dark base */
+    --foreground-rgb: 0, 0, 0;   /* Bright soft white for clear text */
+    --background-end-rgb: 255, 255, 255;;      /* Soft blue - soothing and modern */
+           
   }
 }
 
