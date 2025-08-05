@@ -22,7 +22,7 @@ export async function generateStaticParams() {
   }));
 }
 
-export function generateMetadata({ params }: ProductPageProps): Metadata {
+export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
   const product = getProductBySlug(params.slug);
   if (!product) {
     return {
