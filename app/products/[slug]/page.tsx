@@ -30,19 +30,18 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({
-  params,
-}: ProductPageProps): Promise<Metadata> {
-  const product = getProductBySlug(params.slug);
+export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const product = getProductBySlug(slug);
 
   if (!product) {
-    return {
+    return {   
       title: "Product Not Found",
-    };
+    }; 
   }
 
   return {
-    title: `${product.name} - ShopNext`,
+    title: `${product.name} - BShop`,
     description: product.description,
     keywords: product.tags.join(", "),
     openGraph: {
@@ -67,8 +66,9 @@ export async function generateMetadata({
   };
 }
 
-export default function ProductPage({ params }: ProductPageProps) {
-  const product = getProductBySlug(params.slug);
+export default async function ProductPage({ params }: ProductPageProps) {
+  const { slug } = await params;
+  const product = getProductBySlug(slug);
 
   if (!product) {
     notFound();

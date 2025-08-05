@@ -12,7 +12,7 @@ export interface Product {
     featured: boolean;
     rating: number;
     reviewCount: number;
-    specifications?: Record<string, string>;
+    specifications: Record<string, string>;
     tags: string[];
 }
 
