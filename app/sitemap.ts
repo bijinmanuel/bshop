@@ -1,7 +1,8 @@
 import { MetadataRoute } from 'next';
-import { products } from '@/lib/products';
+import { getDocs, collection } from "firebase/firestore";
+import { db } from "@/lib/firebase";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const baseUrl = 'https://bshop.com';
 
     // Static pages
@@ -26,13 +27,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
         },
     ];
 
-    // Product pages
-    const productPages = products.map((product) => ({
-        url: `${baseUrl}/products/${product.slug}`,
-        lastModified: new Date(),
-        changeFrequency: 'weekly' as const,
-        priority: 0.8,
-    }));
+    const productSnapshot = await getDocs(collection(db, "products"));
+    const productPages = productSnapshot.docs.map((doc) => {
+        const data = doc.data();
+        return {
+            url: `${baseUrl}/products/${data.slug}`,
+            lastModified: new Date(),
+            changeFrequency: "weekly" as const,
+            priority: 0.8,
+        };
+    });
 
     return [...staticPages, ...productPages];
 }

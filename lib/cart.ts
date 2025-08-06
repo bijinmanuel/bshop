@@ -3,6 +3,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { Product, CartItem, } from "@/types/product";
+import { removeCartItemFromFirebase, syncCartToFirebase, updateItemQuantityInFirebase } from "@/services/cartServices";
 
 interface CartState {
     items: CartItem[];
@@ -45,6 +46,12 @@ export const useCartStore = create<CartStore>()(
                         totalQuantity: state.totalQuantity + 1
                     }));
                 }
+
+                try {
+                    syncCartToFirebase(get());
+                } catch (err) {
+                    console.error('Error syncing to Firebase:', err);
+                }
             },
 
             removeItem: (productId: string) => {
@@ -57,6 +64,12 @@ export const useCartStore = create<CartStore>()(
                         totalPrice: state.totalPrice - (item.product.price * item.quantity),
                         totalQuantity: state.totalQuantity - item.quantity
                     }));
+                }
+
+                try{
+                    removeCartItemFromFirebase(productId);
+                }catch (err) {
+                    console.error('Error removing item from Firebase:', err);
                 }
             },
 
@@ -80,6 +93,12 @@ export const useCartStore = create<CartStore>()(
                         totalPrice: state.totalPrice + (item.product.price * quantityDiff),
                         totalQuantity: state.totalQuantity + quantityDiff
                     }));
+                }
+
+                try{
+                    updateItemQuantityInFirebase(productId, quantity);
+                }catch (err) {
+                    console.error('Error updating item quantity in Firebase:', err);
                 }
             },
 

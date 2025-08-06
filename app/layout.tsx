@@ -11,31 +11,52 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "E-Commerce App",
-  description: "An E-Commerce application built with Next.js",
-  keywords: ["e-commerce", "online Shopping ", "electronics", "furniture", "clothing"],
-  authors: [{ name: "Shop ECom",}],
-  creator: "Shop ECom",
-  formatDetection: {
-    telephone: false,
-    address: false,
-    email: false,
+  title: {
+    default: 'BShop - Premium Products at Best Prices',
+    template: '%s | BShop',
   },
-  metadataBase: new URL("https://ecommerce-app.com"),
+  description: 'Shop the latest and most popular products at BShop. Discover unbeatable deals on electronics, fashion, home, and more.',
+  keywords: ['bshop', 'ecommerce', 'online shopping', 'buy online', 'electronics', 'fashion', 'deals', 'discounts', 'shop online'],
+  authors: [{ name: 'BShop Team', url: 'https://bshop.com' }],
+  creator: 'BShop',
+  publisher: 'BShop',
+  metadataBase: new URL('https://bshop.com'),
   openGraph: {
-    title: "E-Commerce App",
-    description: "An E-Commerce application built with Next.js",
-    url: "https://ecommerce-app.com",
-    siteName: "E-Commerce App",
-    type: "website",
-    locale: "en_US",
+    title: 'BShop - Premium Products at Best Prices',
+    description: 'Shop the latest and most popular products at BShop. Discover unbeatable deals on electronics, fashion, home, and more.',
+    url: 'https://bshop.com',
+    siteName: 'BShop',
+    images: [
+      {
+        url: 'https://bshop.com/og-image.jpg', 
+        width: 1200,
+        height: 630,
+        alt: 'BShop - Your trusted online store',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
   },
   twitter: {
-    card: "summary_large_image",
-    title: "E-Commerce App",
-    description: "An E-Commerce application built with Next.js",
-    creator: "@shop_ecom",
+    card: 'summary_large_image',
+    title: 'BShop - Premium Products at Best Prices',
+    description: 'Shop top-rated products with exclusive deals at BShop.',
+    site: '@bshop', 
+    creator: '@bshop',
+    images: ['https://bshop.com/og-image.jpg'], 
   },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
+  },
+  alternates: {
+    canonical: 'https://bshop.com',
+  },
+  category: 'ecommerce',
 };
 
 export default function RootLayout({

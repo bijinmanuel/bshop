@@ -1,13 +1,12 @@
 import { ArrowRight, Clock, Shield, Truck } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { getFeaturedProducts } from "@/lib/products";
 import { ProductCard } from "@/components/ui/product-card";
+import { productService } from "@/services/productService";
 
-export default function Home() {
-  const featuredProducts = getFeaturedProducts();
+export default async function Home() {
+  const featuredProducts = await productService.getFeaturedProducts();
   return (
     <div className="space-y-16">
       {/* Hero Section */}
@@ -25,16 +24,16 @@ export default function Home() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/products">
-                <Button size="lg" className="text-lg px-8">
+                <Button variant="outline" size="lg" className="text-lg px-8">
                   Shop Now
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
-              <Link href="/categories">
+              {/* <Link href="/categories">
                 <Button variant="outline" size="lg" className="text-lg px-8">
                   Browse Categories
                 </Button>
-              </Link>
+              </Link> */}
             </div>
           </div>
         </div>
@@ -123,7 +122,11 @@ export default function Home() {
               shopping needs.
             </p>
             <Link href="/products">
-              <Button size="lg" variant="secondary" className="text-lg px-8 hover:text-black">
+              <Button
+                size="lg"
+                variant="secondary"
+                className="text-lg px-8 hover:text-black"
+              >
                 Start Shopping
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>

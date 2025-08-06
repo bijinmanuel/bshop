@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { getProductBySlug, products } from "@/lib/products";
+// import { getProductBySlug, products } from "@/lib/products";
 import { notFound } from "next/navigation";
 import {
   ArrowLeft,
@@ -17,20 +17,25 @@ import { useCartStore } from "@/lib/cart";
 import { AddToCartButton } from "@/components/ui/add-to-cart-button";
 import { Separator } from "@radix-ui/react-select";
 import { Badge } from "@/components/ui/badge";
+import { productService } from "@/services/productService";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "@/lib/firebase";
 
 interface ProductPageProps {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ id: string }>;
 }
 
 export async function generateStaticParams() {
-  return products.map((product) => ({
-    slug: product.slug,
+  const snapshot = await getDocs(collection(db, "products"));
+  return snapshot.docs.map((doc) => ({
+    id: doc.id, 
   }));
 }
 
+
 export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
-  const { slug } = await params;
-  const product = getProductBySlug(slug);
+  const { id } = await params;
+  const product = await productService.getProductById(id) ;
 
   if (!product) {
     return {   
@@ -65,8 +70,8 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
 }
 
 export default async function ProductPage({ params }: ProductPageProps) {
-  const { slug } = await params;
-  const product = getProductBySlug(slug);
+  const { id } = await params;
+  const product = await productService.getProductById(id);
 
   if (!product) {
     notFound();
@@ -77,28 +82,33 @@ export default async function ProductPage({ params }: ProductPageProps) {
     "@type": "Product",
     name: product.name,
     description: product.description,
-    image: product.images,
+    image: Array.isArray(product.images) ? product.images : [product.images],
     brand: {
       "@type": "Brand",
-      name: "ShopNext",
+      name: "bShop",
     },
+    sku: product.id || "", 
     offers: {
       "@type": "Offer",
-      price: product.price,
+      url: `https://bshop.com/products/${product.slug}`, 
       priceCurrency: "USD",
+      price: product.price,
       availability: product.inStock
         ? "https://schema.org/InStock"
         : "https://schema.org/OutOfStock",
+      itemCondition: "https://schema.org/NewCondition",
       seller: {
         "@type": "Organization",
-        name: "ShopNext",
+        name: "bShop",
       },
     },
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: product.rating,
-      reviewCount: product.reviewCount,
-    },
+    aggregateRating: product.rating
+      ? {
+          "@type": "AggregateRating",
+          ratingValue: product.rating.toFixed(1),
+          reviewCount: product.reviewCount || 0,
+        }
+      : undefined,
   };
 
   return (
@@ -162,6 +172,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
                       fill
                       className="object-cover"
                       sizes="(max-width: 768px) 25vw, 12.5vw"
+                      loading="lazy"
                     />
                   </div>
                 ))}
