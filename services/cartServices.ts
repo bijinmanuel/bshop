@@ -6,11 +6,7 @@ import { doc, setDoc, getDoc, updateDoc, deleteDoc } from 'firebase/firestore';
 export const getCartRef = () => {
     const user = auth.currentUser;
     if (!user) throw new Error('User not logged in');
-    console.log('Cart reference created for user');
     return doc(db, 'carts', user.uid);
-    // console.log('Cart reference:', cartRef);
-    // console.log('Cart reference created for user');
-    // return cartRef;
 };
 
 export const syncCartToFirebase = async (cart: CartState) => { 
@@ -70,7 +66,6 @@ export const updateItemQuantityInFirebase = async (
         const cartSnap = await getDoc(cartRef);
 
         if (!cartSnap.exists()) {
-            console.warn("Cart does not exist in Firebase.");
             return;
         }
 
@@ -133,9 +128,7 @@ export const syncFirebaseCartToLocal = async () => {
   try {
 
     const cartRef = getCartRef();
-    console.log('Fetching cart from Firebase:', cartRef);
     const cartSnap = await getDoc(cartRef);
-    console.log('Cart snapshot:', cartSnap); 
 
     if (cartSnap.exists()) {
       const { items, totalPrice, totalQuantity } = cartSnap.data();

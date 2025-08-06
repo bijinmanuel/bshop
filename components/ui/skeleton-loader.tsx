@@ -1,12 +1,7 @@
-import { Button } from "@/components/ui/button";
-import { ArrowLeft, AlertCircle } from "lucide-react";
-import Link from "next/link";
 
-// Product Page Skeleton Component
 export default function ProductPageSkeleton() {
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Breadcrumb Skeleton */}
       <div className="bg-white border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center space-x-2">
@@ -21,7 +16,6 @@ export default function ProductPageSkeleton() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Image Section Skeleton */}
           <div className="space-y-4">
             <div className="aspect-square bg-gray-200 rounded-lg animate-pulse"></div>
             <div className="grid grid-cols-4 gap-2">
@@ -34,15 +28,12 @@ export default function ProductPageSkeleton() {
             </div>
           </div>
 
-          {/* Product Info Skeleton */}
           <div className="space-y-6">
-            {/* Title */}
             <div className="space-y-2">
               <div className="h-8 bg-gray-200 rounded animate-pulse w-3/4"></div>
               <div className="h-4 bg-gray-200 rounded animate-pulse w-1/2"></div>
             </div>
 
-            {/* Rating */}
             <div className="flex items-center space-x-2">
               <div className="flex space-x-1">
                 {[...Array(5)].map((_, i) => (
@@ -55,17 +46,14 @@ export default function ProductPageSkeleton() {
               <div className="h-4 w-20 bg-gray-200 rounded animate-pulse"></div>
             </div>
 
-            {/* Price */}
             <div className="h-8 w-32 bg-gray-200 rounded animate-pulse"></div>
 
-            {/* Description */}
             <div className="space-y-2">
               <div className="h-4 bg-gray-200 rounded animate-pulse w-full"></div>
               <div className="h-4 bg-gray-200 rounded animate-pulse w-5/6"></div>
               <div className="h-4 bg-gray-200 rounded animate-pulse w-4/6"></div>
             </div>
 
-            {/* Features */}
             <div className="space-y-3">
               <div className="h-6 w-24 bg-gray-200 rounded animate-pulse"></div>
               {[...Array(4)].map((_, i) => (
@@ -76,7 +64,6 @@ export default function ProductPageSkeleton() {
               ))}
             </div>
 
-            {/* Actions */}
             <div className="space-y-4">
               <div className="flex items-center space-x-4">
                 <div className="h-4 w-16 bg-gray-200 rounded animate-pulse"></div>
@@ -88,7 +75,6 @@ export default function ProductPageSkeleton() {
           </div>
         </div>
 
-        {/* Related Products Skeleton */}
         <div className="mt-16">
           <div className="h-8 w-48 bg-gray-200 rounded animate-pulse mb-8"></div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -126,7 +112,6 @@ export function ProductListPageSkeleton() {
         </p>
       </div>
 
-      {/* Loading skeleton */}
       <div className="bg-white rounded-lg shadow-md p-6 mb-8">
         <div className="flex flex-col lg:flex-row gap-4">
           <div className="flex-1">

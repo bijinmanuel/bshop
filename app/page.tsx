@@ -9,7 +9,6 @@ export default async function Home() {
   const featuredProducts = await productService.getFeaturedProducts();
   return (
     <div className="space-y-16">
-      {/* Hero Section */}
       <section className="bg-gradient-to-br from-blue-50 to-indigo-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
           <div className="text-center">
@@ -29,17 +28,11 @@ export default async function Home() {
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
-              {/* <Link href="/categories">
-                <Button variant="outline" size="lg" className="text-lg px-8">
-                  Browse Categories
-                </Button>
-              </Link> */}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Features Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <Card>
@@ -83,7 +76,6 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Featured Products */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-gray-900 mb-4">
@@ -110,7 +102,6 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* CTA Section */}
       <section className="bg-gray-900 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="text-center">

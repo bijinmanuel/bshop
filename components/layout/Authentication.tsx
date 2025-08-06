@@ -1,10 +1,9 @@
-// app/components/AuthModal.tsx
 "use client";
 
 import { useState } from "react";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
-import { FiUser, FiUserPlus } from "react-icons/fi"; // Optional icons
+import { FiUser, FiUserPlus } from "react-icons/fi"; 
 
 export default function AuthModal({ onClose }: { onClose: () => void }) {
   const [tab, setTab] = useState<"login" | "register">("login");
@@ -12,7 +11,6 @@ export default function AuthModal({ onClose }: { onClose: () => void }) {
   return (
     <div className="absolute top-20 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-md px-4">
       <div className="bg-white border shadow-2xl rounded-2xl p-6 relative animate-fade-in overflow-hidden">
-        {/* Close button */}
         <button
           onClick={onClose}
           className="absolute top-3 right-4 text-gray-500 hover:text-red-600 text-xl font-bold"
@@ -20,7 +18,6 @@ export default function AuthModal({ onClose }: { onClose: () => void }) {
           &times;
         </button>
 
-        {/* Title */}
         <div className="mb-4 text-center">
           <h2 className="text-2xl font-bold text-gray-800 flex items-center justify-center space-x-2">
             {tab === "login" ? (
@@ -42,7 +39,6 @@ export default function AuthModal({ onClose }: { onClose: () => void }) {
           </p>
         </div>
 
-        {/* Tabs */}
         <div className="flex justify-center space-x-3 mb-6">
           <button
             onClick={() => setTab("login")}
@@ -66,7 +62,6 @@ export default function AuthModal({ onClose }: { onClose: () => void }) {
           </button>
         </div>
 
-        {/* Form */}
         <div className="transition-opacity duration-200">
           {tab === "login" ? <LoginForm /> : <RegisterForm />}
         </div>

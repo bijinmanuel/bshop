@@ -119,7 +119,6 @@ export default async function ProductPage({ params }: ProductPageProps) {
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
-        {/* Breadcrumb */}
         <nav className="flex items-center space-x-2 text-sm text-gray-500 mb-8">
           <Link href="/" className="hover:text-blue-600">
             Home
@@ -141,7 +140,6 @@ export default async function ProductPage({ params }: ProductPageProps) {
         </Link>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Product Images */}
           <div className="space-y-4">
             <div className="aspect-square relative overflow-hidden rounded-lg border">
               <Image
@@ -179,8 +177,6 @@ export default async function ProductPage({ params }: ProductPageProps) {
               </div>
             )}
           </div>
-
-          {/* Product Info */}
           <div className="space-y-6">
             <div>
               <Badge
@@ -234,8 +230,6 @@ export default async function ProductPage({ params }: ProductPageProps) {
                 {product.description}
               </p>
             </div>
-
-            {/* Stock Status */}
             <div className="flex items-center space-x-2">
               <div
                 className={`w-2 h-2 rounded-full ${
@@ -250,8 +244,6 @@ export default async function ProductPage({ params }: ProductPageProps) {
                 {product.inStock ? "In Stock" : "Out of Stock"}
               </span>
             </div>
-
-            {/* Actions */}
             <div className="space-y-4">
               <AddToCartButton
                 product={product}
@@ -272,7 +264,6 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
             <Separator />
 
-            {/* Specifications */}
             <div>
               <h3 className="font-semibold mb-4">Specifications</h3>
               <div className="space-y-2">
@@ -292,7 +283,6 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
             <Separator />
 
-            {/* Features */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="flex items-center space-x-3">
                 <Truck className="h-5 w-5 text-blue-600" />

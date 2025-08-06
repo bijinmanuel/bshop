@@ -11,14 +11,12 @@ export default function ProductPageError({
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center">
       <div className="max-w-md w-full mx-auto text-center px-4">
-        {/* Error Icon */}
         <div className="flex justify-center mb-6">
           <div className="rounded-full bg-red-100 p-4">
             <AlertCircle className="h-12 w-12 text-red-600" />
           </div>
         </div>
 
-        {/* Error Message */}
         <h1 className="text-2xl font-bold text-gray-900 mb-2">
           Something went wrong
         </h1>
@@ -26,7 +24,6 @@ export default function ProductPageError({
           {error || "We couldn't load the product details. Please try again."}
         </p>
 
-        {/* Action Buttons */}
         <div className="space-y-4">
           {onRetry && (
             <Button onClick={onRetry} className="w-full">

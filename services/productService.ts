@@ -16,7 +16,6 @@ import { Product } from '@/types/product';
 const COLLECTION_NAME = 'products';
 
 export const productService = {
-    // Get all products
     async getAllProducts(): Promise<Product[]> {
         try {
             const querySnapshot = await getDocs(
@@ -33,7 +32,6 @@ export const productService = {
         }
     },
 
-    // Get products by category
     async getProductsByCategory(category: string): Promise<Product[]> {
         try {
             const querySnapshot = await getDocs(
@@ -54,7 +52,6 @@ export const productService = {
         }
     },
 
-    // Get single product
     async getProductById(id: string): Promise<Product | null> {
         console.log(id);
         try {
@@ -78,7 +75,6 @@ export const productService = {
         }
     },
 
-    // Get featured products (in stock, limited)
     async getFeaturedProducts(limitCount: number = 6): Promise<Product[]> {
         try {
             const querySnapshot = await getDocs(

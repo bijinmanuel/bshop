@@ -26,15 +26,12 @@ export default function RegisterForm() {
 
   return (
     <div className="w-full max-w-md bg-white border rounded-xl shadow-xl p-6 transition-all duration-300">
-      {/* Icon and Heading */}
       <div className="flex items-center justify-center mb-6">
         <FiUserPlus className="text-4xl text-green-600 mr-2" />
         <h2 className="text-2xl font-bold text-gray-800">
           Create Your Account
         </h2>
       </div>
-
-      {/* Form Fields */}
       <div className="space-y-4">
         <input
           type="email"
@@ -70,15 +67,6 @@ export default function RegisterForm() {
           </div>
         )}
       </div>
-
-      {/* Decorative Image */}
-      {/* <div className="mt-6 text-center">
-        <img
-          src="https://illustrations.popsy.co/gray/user.svg"
-          alt="Register illustration"
-          className="w-32 mx-auto opacity-80"
-        />
-      </div> */}
     </div>
   );
 }
