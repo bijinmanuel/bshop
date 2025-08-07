@@ -4,8 +4,6 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { Product, CartItem, } from "@/types/product";
 import { removeCartItemFromFirebase, syncCartToFirebase, updateItemQuantityInFirebase } from "@/services/cartServices";
-import { Snackbar } from "@/components/ui/snackbar";
-
 interface CartState {
     items: CartItem[];
     totalPrice: number;
