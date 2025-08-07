@@ -4,6 +4,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { Product, CartItem, } from "@/types/product";
 import { removeCartItemFromFirebase, syncCartToFirebase, updateItemQuantityInFirebase } from "@/services/cartServices";
+import { Snackbar } from "@/components/ui/snackbar";
 
 interface CartState {
     items: CartItem[];
@@ -66,9 +67,9 @@ export const useCartStore = create<CartStore>()(
                     }));
                 }
 
-                try{
+                try {
                     removeCartItemFromFirebase(productId);
-                }catch (err) {
+                } catch (err) {
                     console.error('Error removing item from Firebase:', err);
                 }
             },
@@ -95,9 +96,9 @@ export const useCartStore = create<CartStore>()(
                     }));
                 }
 
-                try{
+                try {
                     updateItemQuantityInFirebase(productId, quantity);
-                }catch (err) {
+                } catch (err) {
                     console.error('Error updating item quantity in Firebase:', err);
                 }
             },

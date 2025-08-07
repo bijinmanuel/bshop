@@ -7,10 +7,18 @@ import { Product } from "@/types/product";
 import { useCartStore } from "@/lib/cart";
 import AuthModal from "@/components/layout/Authentication";
 import useFirebaseAuth from "@/hook/useFirebaseAuth";
+import Snackbar from "./snackbar";
+import { useSnackbar } from "@/hook/userSnackbar";
 
 interface AddToCartButtonProps {
   product: Product;
   className?: string;
+}
+
+interface SnackbarState {
+  isVisible: boolean;
+  message: string;
+  type: "success" | "error";
 }
 
 export function AddToCartButton({
@@ -21,19 +29,26 @@ export function AddToCartButton({
   const addItem = useCartStore((state) => state.addItem);
   const { user, loading } = useFirebaseAuth();
   const [showModal, setShowModal] = useState(false);
+  const { snackbar, showSuccess, showError, hideSnackbar } = useSnackbar();
 
   const handleAddToCart = () => {
-    if(user){
-
+    if (user) {
       addItem(product);
       setIsAdded(true);
       setTimeout(() => setIsAdded(false), 2000);
-    }else{
+      showSuccess(`${product.name} added to cart!`);
+    } else {
       setShowModal(true);
+      showError("Failed to add item to cart. Please Login or Register.");
     }
   };
 
-  if (loading) return <p className="text-center mt-10">Checking authentication...</p>;
+  if (loading)
+    return <p className="text-center mt-10">Checking authentication...</p>;
+  if (showModal) {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    return <AuthModal onClose={() => setShowModal(false)} />;
+  }
 
   return (
     <>
@@ -55,7 +70,15 @@ export function AddToCartButton({
           </>
         )}
       </Button>
-      {showModal && <AuthModal onClose={() => setShowModal(false)} />}
+
+      <Snackbar
+        message={snackbar.message}
+        isVisible={snackbar.isVisible}
+        onClose={hideSnackbar}
+        type={snackbar.type}
+        duration={snackbar.duration}
+        position={snackbar.position}
+      />
     </>
   );
 }

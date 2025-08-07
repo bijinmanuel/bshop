@@ -76,7 +76,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
   if (!product) {
     notFound();
   }
-
+ 
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",

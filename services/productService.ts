@@ -74,8 +74,8 @@ export const productService = {
             throw new Error('Failed to fetch product');
         }
     },
-
-    async getFeaturedProducts(limitCount: number = 6): Promise<Product[]> {
+ 
+    async getFeaturedProducts(limitCount: number = 8): Promise<Product[]> {
         try {
             const querySnapshot = await getDocs(
                 query(

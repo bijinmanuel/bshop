@@ -8,6 +8,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useCartStore } from "@/lib/cart";
+import useFirebaseAuth from "@/hook/useFirebaseAuth";
+import { useState } from "react";
+import AuthModal from "../layout/Authentication";
+import Snackbar from "./snackbar";
+import { useSnackbar } from "@/hook/userSnackbar";
 
 interface ProductCardProps {
   product: Product;
@@ -15,14 +20,29 @@ interface ProductCardProps {
 
 export function ProductCard({ product }: ProductCardProps) {
   const addItem = useCartStore((state) => state.addItem);
+  const { user, loading } = useFirebaseAuth();
+  const [showModal, setShowModal] = useState(false);
+  const { snackbar, showSuccess, showError, hideSnackbar } = useSnackbar();
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    addItem(product);
+    if (user) {
+      addItem(product);
+      showSuccess(`${product.name} added to cart!`);
+    } else {
+      setShowModal(true);
+      showError("Failed to add item to cart. Please Login or Register.");
+    }
   };
 
+  if(showModal) {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    return <AuthModal onClose={() => setShowModal(false)} />;
+  }
+
   return (
+    <>
     <Link href={`/products/${product.id}`}>
       <Card className="group cursor-pointer overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
         <div className="relative aspect-square overflow-hidden">
@@ -98,5 +118,15 @@ export function ProductCard({ product }: ProductCardProps) {
         </CardContent>
       </Card>
     </Link>
+
+    <Snackbar
+        message={snackbar.message}
+        isVisible={snackbar.isVisible}
+        onClose={hideSnackbar}
+        type={snackbar.type}
+        duration={snackbar.duration}
+        position={snackbar.position}
+      />
+    </>
   );
 }
